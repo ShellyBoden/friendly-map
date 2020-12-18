@@ -1,0 +1,260 @@
+import { StatusBar } from 'expo-status-bar';
+import { preventAutoHide } from 'expo/build/launch/SplashScreen';
+import React from 'react';
+import { StyleSheet, Text, Image, View, TextInput, Button, ScrollView, TouchableOpacity} from 'react-native';
+import elementData from "./src/json/element.json";
+import User from "./src/json/user.json";
+
+function App() {
+  const [value, onChangeText] = React.useState('Useless Placeholder');
+  
+  return (
+    <View style={styles.home}>
+      <View style={styles.header}>
+        <View style={styles.top}></View>
+        <View style={styles.boxSearchUser}>
+          <TextInput
+            style={styles.searchbar}
+            onChangeText={text => onChangeText(text)}
+            value={value}
+          />
+          <Image
+            style={styles.userImg}
+            source={{
+              uri: User.user[0].image,
+            }}
+          />
+        </View>
+
+        <ScrollView style={styles.element} horizontal={true}>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[0].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[1].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[2].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[3].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[4].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[5].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[6].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[7].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[8].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[9].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[10].name}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.btn_element}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>{elementData[11].name}</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+
+      <ScrollView style={styles.map}>
+        <Text>地圖放這</Text>
+        <View style={styles.mapBtn}>
+          <TouchableOpacity 
+            style={styles.btn_position}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>P</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.btn_navigation}
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Text>N</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    
+      <View style={styles.navbar}>
+        <TouchableOpacity 
+        style={styles.btn_navbar}
+        onPress={() => navigation.navigate('MapScreen', name)}
+        >
+          <Image style={styles.navbarimg}></Image>
+          <Text>地圖</Text>
+        </TouchableOpacity>
+
+          <TouchableOpacity 
+          style={styles.btn_navbar}
+          onPress={() => navigation.navigate('ContributeScreen', name)}
+          >
+            <Image style={styles.navbarimg}></Image>
+            <Text>安全回報</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+          style={styles.btn_navbar}
+          onPress={() => navigation.navigate('PersonalScreen', name)}
+          >
+            <Image style={styles.navbarimg}></Image>
+            <Text>個人</Text>
+          </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  top:{
+    height: 40,
+  },
+
+  home:{
+    flex:  1,
+    flexDirection: 'column',
+  },
+
+  header: {
+    backgroundColor: '#F7F7F5',
+  },
+
+  boxSearchUser:{
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+
+  userImg:{
+    marginRight: 20,
+    height: 40,
+    width: 40,
+    borderRadius: 60,
+    backgroundColor: 'yellow',
+  },
+
+  searchbar: { 
+    flex: 1,
+    marginHorizontal: 20,
+    paddingHorizontal: 12,
+    height: 40, 
+    borderColor: 'gray', 
+    borderWidth: 1,
+    borderRadius: 30,
+  },
+
+  element: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+  },
+
+  btn_element: {
+    backgroundColor: "#DDDDDD",
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    height: 30,
+    borderRadius: 10,
+    backgroundColor: 'gray',
+    marginVertical: 5,
+    marginRight:10,
+  },
+
+  map:{
+    flex: 1,
+    // backgroundColor: 'blue',
+    flexDirection: 'column-reverse',
+  },
+
+  mapBtn:{
+    // backgroundColor: 'pink',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+
+  btn_position:{
+    width:50,
+    height:50,
+    borderRadius: 25,
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 14,
+    marginVertical: 20,
+  },
+
+  btn_navigation: {
+    width:50,
+    height:50,
+    borderRadius: 25,
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 14,
+  },
+
+  navbar:{
+    flexDirection: 'row',
+
+  },
+
+  navbarimg:{
+    height: 30,
+    width: 30,
+    backgroundColor: 'pink',
+    marginBottom: 5,
+  },
+
+  btn_navbar:{
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    paddingVertical: 15,
+    flex: 1,
+  }
+});
+
+export default App;
