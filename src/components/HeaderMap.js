@@ -6,9 +6,10 @@ import { StyleSheet, Text, Image, View, TextInput, Button, ScrollView, Touchable
 import elementData from "../json/element.json";
 import User from "../json/user.json";
 import theme from '../color';
+import { State } from 'react-native-gesture-handler';
 
 const HeaderMap = () =>{
-    const [value, onChangeText] = React.useState('Useless Placeholder');
+  const [value, onChangeText] = React.useState('Useless Placeholder');
 
     return(
       <View style={styles.header}>

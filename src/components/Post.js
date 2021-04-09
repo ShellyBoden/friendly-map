@@ -3,12 +3,44 @@ import { preventAutoHide } from 'expo/build/launch/SplashScreen';
 import React from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, Image, Text, TouchableOpacity, TextInput, View, ScrollView} from 'react-native';
+import { db } from '../firebase/config.js';
 import event from "../json/event.json";
 import theme from '../color';
+import * as ImagePicker from 'expo-image-picker';
 
 const Post = () => {
   const [valueLocation, onChangeText] = React.useState('請輸入地址');
   const [value, onChangeEvent] = React.useState('請輸入您所遇到的問題');
+
+  // setTimeout(() => {
+  //   db.ref('post').on('value', (data) => {
+  //   var res=data.toJSON();
+  //   console.warn(res["-MWJ6C7MovkgQB3sKyIy"]);
+  // })},1000);
+
+  const addItem = () => {
+    db.ref('/post').push({
+      valueLocation: valueLocation,
+      value:value
+    });
+  };
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    db.storage().ref('/post').push({
+      result:result.uri
+    });
+  };
+
+
+
+
 
   return (
     <ScrollView style={styles.header}>
@@ -21,7 +53,7 @@ const Post = () => {
           <Image
             style={styles.userImg}
             source={{
-              uri: event.user[0].image,
+              uri: "https://firebasestorage.googleapis.com/v0/b/friendly-map-284707.appspot.com/o/2231rw.png?alt=media&token=cdc9976f-4167-45c6-b4d1-a0ab0e698be6",
             }}
           />
           <View style={styles.userText}>
@@ -36,7 +68,9 @@ const Post = () => {
               onChangeText={text => onChangeText(text)}
               value={valueLocation}
           />
-          <TouchableOpacity style={styles.addbtn}>
+          <TouchableOpacity
+          style={styles.addbtn}
+          >
             <Text style={styles.btn_text_white}>+</Text>
           </TouchableOpacity>
         </View>
@@ -51,7 +85,7 @@ const Post = () => {
         />
         <View style={styles.boxImageInputEventInputBtn}>
           <View style={styles.boxImageInput}>
-            <TouchableOpacity style={styles.eventImage}>
+            <TouchableOpacity style={styles.eventImage} onPress={pickImage}>
               <Text style={styles.btn_text_gary}>+</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.eventImage}>
@@ -62,7 +96,10 @@ const Post = () => {
             <TouchableOpacity style={styles.EventInputBtn1}>
               <Text style={styles.btn_text_blue}>取消</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.EventInputBtn}>
+            <TouchableOpacity 
+            style={styles.EventInputBtn}
+            onPress={addItem}
+            >
               <Text style={styles.btn_text_white}>上傳</Text>
             </TouchableOpacity>
           </View>
@@ -411,4 +448,3 @@ const styles = StyleSheet.create({
 });
 
 export default Post;
-
