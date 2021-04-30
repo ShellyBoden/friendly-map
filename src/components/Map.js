@@ -92,6 +92,8 @@ const Map = () =>{
             );
         } else {
             getLocation();
+            let regionName = Location.reverseGeocodeAsync({longitude: marker.coord.longitude, latitude: marker.coord.latitude});
+            console.warn(regionName);
         }
     }, []);
     

@@ -1,16 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { preventAutoHide } from 'expo/build/launch/SplashScreen';
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { StyleSheet, Image, Text, TouchableOpacity, TextInput, View, ScrollView} from 'react-native';
 import { db } from '../firebase/config.js';
 import event from "../json/event.json";
 import theme from '../color';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 
 const Post = () => {
   const [valueLocation, onChangeText] = React.useState('請輸入地址');
   const [value, onChangeEvent] = React.useState('請輸入您所遇到的問題');
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(JSON.stringify(location.latitude));
+    })();
+  }, []);
 
   // setTimeout(() => {
   //   db.ref('post').on('value', (data) => {
@@ -66,7 +82,7 @@ const Post = () => {
           <TextInput
               style={styles.location}
               onChangeText={text => onChangeText(text)}
-              value={valueLocation}
+              value={location}
           />
           <TouchableOpacity
           style={styles.addbtn}
